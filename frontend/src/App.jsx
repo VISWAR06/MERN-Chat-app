@@ -2,8 +2,8 @@ import React from 'react'
 
 const App = () => {
   return (
-    <div className='bg-red-400'>
-      hello
+    <div className='bg-red-200'>
+      hello there
     </div>
   )
 }
