@@ -14,6 +14,9 @@ const Header = () => {
             <span className="flex justify-center">THIS PLATFORM</span>
         </h1>
       </div>
+              <p className='pt-4'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt nihil numquam velit odio dolorem quia voluptates doloribus exercitationem reprehenderit reiciendis.</p>
+<div className=' border-2 rounded-3xl border-black w-26 flex justify-center'><input type='text'className='border-2 shadow-lg border-black px-5' placeholder='Search for blog'/>
+<buttom className='bg-blue-400'>Search</buttom></div>
     </div>
   );
 };
