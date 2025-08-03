@@ -16,13 +16,13 @@ const Header = () => {
       </div>
               <p className='flex justify-center'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt nihil numquam velit odio dolorem quia voluptates doloribus exercitationem reprehenderit reiciendis.</p>
  <div className="mt-8 flex justify-center">
-        <div className="border-2 rounded-2xl border-black flex items-center overflow-hidden shadow-lg">
+        <div className="border-2 w-96 border-black flex items-center overflow-hidden shadow-lg">
           <input 
             type="text" 
             className="px-6 py-3 w-64 text-lg focus:outline-none" 
             placeholder="Search for blog"
           />
-          <button className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 font-medium transition-colors">
+          <button className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 ml-10 font-medium transition-colors">
             Search
           </button>
         </div>
