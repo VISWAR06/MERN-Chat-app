@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { blog_data } from '../QuickBlog-Assets/assets';
 import Blogcard from './Blogcard';
+import { useNavigate } from 'react-router-dom';
 
 const Bloglist = () => {
   const [activeCategory, setActiveCategory] = useState('All');
-
+  const navigate=useNavigate()
   const filteredBlogs = activeCategory === 'All' 
     ? blog_data 
     : blog_data.filter(blog => blog.category == activeCategory);
@@ -32,11 +33,11 @@ const Bloglist = () => {
         </ul>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredBlogs.map((blog) => (
-          <div key={blog._id} className="border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow h-full flex flex-col">
+          <div  key={blog._id} className="border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow h-full flex flex-col">
             {blog.image && (
-              <img 
+              <img onClick={()=>navigate(`/blog/${blog._id}`)}
                 src={blog.image} 
                 alt={blog.description || 'Blog image'} 
                 className="w-full h-48 object-cover rounded-t-lg"
