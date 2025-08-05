@@ -1,10 +1,10 @@
 import React from 'react'
 
 const Blogcard = (props) => {
-    const{_id,image,description,category}=props
+    const{_id,description,category}=props
   return (
     <div>
-      <img src={image} alt="" />
+     
       {category}
       <div>
         {description}

@@ -7,14 +7,14 @@ const Bloglist = () => {
 
   const filteredBlogs = activeCategory === 'All' 
     ? blog_data 
-    : blog_data.filter(blog => blog.category === activeCategory);
+    : blog_data.filter(blog => blog.category == activeCategory);
 
   const categories = ['All', ...new Set(blog_data.map(blog => blog.category))];
 
   return (
     <div className="max-w-7xl mx-auto px-4">
       <div className='flex justify-center my-8'>
-        <ul className="flex flex-wrap gap-4 justify-center">
+        <ul className="flex gap-4 justify-center">
           {categories.map((category) => (
             <li key={category}>
               <button
@@ -43,7 +43,7 @@ const Bloglist = () => {
               />
             )}
             <div className="mt-4 flex-grow">
-              <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm mb-3">
+              <span className=" px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm mb-3">
                 {blog.category}
               </span>
               <p className="text-gray-700 line-clamp-3">
