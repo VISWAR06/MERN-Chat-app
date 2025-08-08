@@ -10,6 +10,7 @@ if(user)res.status(400).send({message:"user alrdy exits"})
 const newuser=new usermodel({
   name,email,password:hashedpasswrod
 })
+   const save=await newuser.save()
 res.status(200).send({message:"user created",hashedpasswrod})
 
 }catch(e){
