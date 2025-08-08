@@ -1,5 +1,13 @@
+import usermodel from "../Models/usermodel.js"
+import bcrypt from 'bcryptjs'
 const login=(req,res)=>{
-    res.send("login")
+const{name,email,password}=req.body
+try{
+
+}catch(e){
+
+}
+   
 
 }
 const logout=(req,res)=>{

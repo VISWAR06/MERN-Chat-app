@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const schema=mongoose.schema({
+const schema=mongoose.Schema({
     name:{
         type:String,
         required:true,maxlength:10
@@ -8,8 +8,8 @@ const schema=mongoose.schema({
         type:String,
         required:true,minlength:8
     },email:{
-        required:true,type:email,unique:true
-    },profilw:{
+        required:true,type:String,unique:true
+    },profile:{
         type:String,
         default:" "
     }
