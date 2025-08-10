@@ -45,6 +45,11 @@ res.status(500).json({message:e.message})
   }
 }
 const logout=(req,res)=>{
-  res.json("singup")
+  try{
+    res.cookie("jwt","",{maxAge:0})
+    res.status(200).json({message:"logged out successfully"})
+  }catch(e){
+res.status(500).json({message:e.message})
+  }
 }
 export  {login,logout,signup}
