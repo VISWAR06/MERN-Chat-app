@@ -35,7 +35,7 @@ const login=async (req,res)=>{
   try{
       const user=await usermodel.findOne({email})
       if(!user)res.status(400).json({message:"Invalid inputs"})
-      const passwrdcrt= bcrypt.compare(password,user.password)
+      const passwrdcrt=  await bcrypt.compare(password,user.password)
     if(!passwrdcrt)res.status(400).json({message:"Invalid inputs"})
       generatetoken(user._id,res)
     res.status(200).json({message:"logged in successfully"})
