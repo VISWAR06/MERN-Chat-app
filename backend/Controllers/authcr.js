@@ -30,10 +30,21 @@ res.status(500).json({message:e.message})
    
 
 }
-const logout=(req,res)=>{
-  res.json
+const login=async (req,res)=>{
+  const{email,password}=req.body;
+  try{
+      const user=await usermodel.findOne({email})
+      if(!user)res.status(400).json({message:"Invalid inputs"})
+      const passwrdcrt= bcrypt.compare(password,user.password)
+    if(!passwrdcrt)res.status(400).json({message:"Invalid inputs"})
+      generatetoken(user._id,res)
+    res.status(200).json({message:"logged in successfully"})
+  }catch(e){
+console.log(e.message)
+res.status(500).json({message:e.message})
+  }
 }
-const login=(req,res)=>{
+const logout=(req,res)=>{
   res.json("singup")
 }
 export  {login,logout,signup}
