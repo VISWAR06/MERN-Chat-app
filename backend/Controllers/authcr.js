@@ -31,7 +31,7 @@ res.status(500).json({message:e.message})
 
 }
 const logout=(req,res)=>{
-  res.json("logout")
+  res.json
 }
 const login=(req,res)=>{
   res.json("singup")
