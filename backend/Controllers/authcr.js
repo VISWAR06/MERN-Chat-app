@@ -1,6 +1,7 @@
 import usermodel from "../Models/usermodel.js"
 import bcrypt from 'bcryptjs'
 import generatetoken from "../lib/jwt.js"
+import cloudinary from "../lib/cloud.js"
 const signup=async(req,res)=>{
 const{name,email,password}=req.body
 try{
@@ -53,7 +54,20 @@ res.status(500).json({message:e.message})
   }
 }
 const upload=async(req,res)=>{
-  const{profile}=req.body
+  try{ const{profile}=req.body
+  const userid=req.user._id
+  if(
+    !profile
+  )res.status(400).json({message:"image not uploaed"})
+  const upload=await cloudinary.uploader.upload(profile)
+  const updateuser=await usermodel.findByIdAndUpdate(userid,{profile:uploadResponse.secure_url},{new:true})
+  res.status(200).json({message:"updated image "})
+
+  }catch(e){
+res.status(500),json({message:e.message})
+  }
+ 
+
 
 }
 export  {login,logout,signup,upload}
