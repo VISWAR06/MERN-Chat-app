@@ -44,7 +44,7 @@ console.log(e.message)
 res.status(500).json({message:e.message})
   }
 }
-const logout=(req,res)=>{
+const logout=async (req,res)=>{
   try{
     res.cookie("jwt","",{maxAge:0})
     res.status(200).json({message:"logged out successfully"})
@@ -52,7 +52,7 @@ const logout=(req,res)=>{
 res.status(500).json({message:e.message})
   }
 }
-const upload=async(req,res){
+const upload=async(req,res)=>{
 
 }
 export  {login,logout,signup,upload}
