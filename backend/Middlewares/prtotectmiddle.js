@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken'
 import usermode from '../Models/usermodel'
+import cookies from 'cookie-parser'
 const protected=async(req,res,next)=>{
     try{
-const token=req.cookie.jwt
+const token=req.cookies.jwt
 if(!token)res.status(500).json({message:"no token founded"})
     const verify=jwt.verify(token,process.env.SECRET)
 if(!verify)res.status(500).json({message:"not authorizied"})

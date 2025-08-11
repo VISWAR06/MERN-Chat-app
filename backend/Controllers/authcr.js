@@ -52,4 +52,7 @@ const logout=(req,res)=>{
 res.status(500).json({message:e.message})
   }
 }
-export  {login,logout,signup}
+const upload=async(req,res){
+
+}
+export  {login,logout,signup,upload}
