@@ -53,6 +53,7 @@ res.status(500).json({message:e.message})
   }
 }
 const upload=async(req,res)=>{
+  const{profile}=req.body
 
 }
 export  {login,logout,signup,upload}
