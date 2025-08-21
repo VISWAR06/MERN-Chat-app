@@ -2,21 +2,25 @@ import jwt from 'jsonwebtoken';
 import usermode from '../Models/usermodel.js';
 
 const middle = async (req, res, next) => {
+  let token
+     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
   try {
-    const token = req.cookies?.jwt;
-    if (!token) return res.status(401).json({ message: "No token found" });
+    token=req.headers.authorization.split(' ')[1]
+    const decode=jwt.verify(token,process.env.SECRET)
+    req.user=await usermode.findById(decode.id).select("-password")
+ 
+      next()
+    
 
-    const decoded = jwt.verify(token, process.env.SECRET);
-    if (!decoded) return res.status(401).json({ message: "Not authorized" });
-
-    const user = await usermode.findById(decoded.userid).select("-password");
-    if (!user) return res.status(401).json({ message: "User not authorized" });
-
-    req.user = user;
-    next();
+    
   } catch (e) {
     return res.status(401).json({ message: e.message });
   }
+}
+if(!token){
+  res.status(400).json("no token generated")
+}
+
 };
 
 export default middle;

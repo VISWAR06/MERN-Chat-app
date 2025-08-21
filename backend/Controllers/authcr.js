@@ -16,7 +16,7 @@ const newuser=new usermodel({
   name,email,password:hashedpasswrod
 })
    if(newuser){
-    await generatetoken(newuser._id,res)
+    await generatetoken(newuser._id,)
     await newuser.save()
     res.status(200).json({message:"created the user"
     })
@@ -38,7 +38,7 @@ const login=async (req,res)=>{
       if(!user)res.status(400).json({message:"Invalid inputs"})
       const passwrdcrt=  await bcrypt.compare(password,user.password)
     if(!passwrdcrt)res.status(400).json({message:"Invalid inputs"})
-      generatetoken(user._id,res)
+      generatetoken(user._id)
     res.status(200).json({message:"logged in successfully"})
   }catch(e){
 console.log(e.message)
