@@ -1,3 +1,4 @@
+import { text } from "express";
 import mongoose from "mongoose";
 const msg=mongoose.Schema({
     senderId:{
@@ -10,7 +11,9 @@ const msg=mongoose.Schema({
         require:true
     },
     image:{
-        type:string,
+        type:String,
         deafult:""
-    }
+    },text:{type:String}
 })
+const msgmodel=mongoose.model("message",msg)
+export default msgmodel
