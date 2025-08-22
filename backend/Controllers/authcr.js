@@ -70,4 +70,11 @@ res.status(500),json({message:e.message})
 
 
 }
-export  {login,logout,signup,upload}
+const check=(req,res)=>{
+  try{res.status(200).json({message:"secured user"})
+
+  }catch(e){
+    res.status(500).json({message:e.message})
+  }
+}
+export  {login,logout,signup,upload,check}
