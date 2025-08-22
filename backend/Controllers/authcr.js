@@ -16,9 +16,9 @@ const newuser=new usermodel({
   name,email,password:hashedpasswrod
 })
    if(newuser){
-    await generatetoken(newuser._id,)
+   const tok= await generatetoken(newuser._id,)
     await newuser.save()
-    res.status(200).json({message:"created the user"
+    res.status(200).json({message:"created the user",tok
     })
 
    }else{
@@ -47,7 +47,7 @@ res.status(500).json({message:e.message})
 }
 const logout=async (req,res)=>{
   try{
-    res.cookie("jwt","",{maxAge:0})
+   
     res.status(200).json({message:"logged out successfully"})
   }catch(e){
 res.status(500).json({message:e.message})
