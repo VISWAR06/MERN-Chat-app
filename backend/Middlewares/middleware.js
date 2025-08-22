@@ -7,7 +7,7 @@ const middle = async (req, res, next) => {
   try {
     token=req.headers.authorization.split(' ')[1]
     const decode=jwt.verify(token,process.env.SECRET)
-    req.user=await usermode.findById(decode.id).select("-password")
+    req.user=await usermode.findById(decode.userid).select("-password")
  
       next()
     
