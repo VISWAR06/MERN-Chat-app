@@ -7,6 +7,7 @@ const app=express()
 dontenv.config()
 connectdb()
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 
 
 const port=process.env.PORT||5001
