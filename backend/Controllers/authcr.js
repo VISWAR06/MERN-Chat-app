@@ -2,6 +2,10 @@ import usermodel from "../Models/usermodel.js";
 import bcrypt from 'bcryptjs';
 import generatetoken from "../lib/jwt.js";
 import cloudinary from "../lib/cloud.js";
+import jwt from 'jsonwebtoken';
+
+// In-memory token blacklist (use Redis in production)
+const tokenBlacklist = new Set();
 
 const signup = async (req, res) => {
   const { name, email, password } = req.body;
@@ -31,7 +35,7 @@ const signup = async (req, res) => {
 
     await newuser.save();
 
-    const token = generatetoken(newuser._id); // no need to await, it's not async
+    const token = generatetoken(newuser._id);
 
     res.status(200).json({
       message: "User created successfully",
@@ -64,6 +68,12 @@ const login = async (req, res) => {
     res.status(200).json({
       message: "Logged in successfully",
       token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        profile: user.profile
+      }
     });
 
   } catch (e) {
@@ -74,7 +84,20 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    // Optional: Handle token invalidation on frontend
+    const authHeader = req.headers.authorization;
+    
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const token = authHeader.split(' ')[1];
+      
+      // Add token to blacklist
+      tokenBlacklist.add(token);
+      
+      // Optional: Set token expiration in blacklist (for automatic cleanup)
+      setTimeout(() => {
+        tokenBlacklist.delete(token);
+      }, 30 * 24 * 60 * 60 * 1000); // Remove after 30 days (token expiry)
+    }
+    
     res.status(200).json({ message: "Logged out successfully" });
   } catch (e) {
     res.status(500).json({ message: e.message });
@@ -120,4 +143,4 @@ const check = (req, res) => {
   }
 };
 
-export { login, logout, signup, upload, check };
+export { login, logout, signup, upload, check, tokenBlacklist };
