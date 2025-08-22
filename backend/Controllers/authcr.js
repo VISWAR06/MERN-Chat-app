@@ -1,81 +1,123 @@
-import usermodel from "../Models/usermodel.js"
-import bcrypt from 'bcryptjs'
-import generatetoken from "../lib/jwt.js"
-import cloudinary from "../lib/cloud.js"
-const signup=async(req,res)=>{
-const{name,email,password}=req.body
-try{
-  if(!name||!email||!password){
-    res.status(400).json({message:"Fill all the fields"})
-  }
-  if(password.length<8)res.status(400).json({message:"Minimum 8 length"})
-  const user= await usermodel.findOne({email})
-if(user)res.status(400).json({message:"user alrdy exits"})
-  const hashedpasswrod= await bcrypt.hash(password,10);
-const newuser=new usermodel({
-  name,email,password:hashedpasswrod
-})
-   if(newuser){
-   const tok= await generatetoken(newuser._id,)
-    await newuser.save()
-    res.status(200).json({message:"created the user",tok
-    })
+import usermodel from "../Models/usermodel.js";
+import bcrypt from 'bcryptjs';
+import generatetoken from "../lib/jwt.js";
+import cloudinary from "../lib/cloud.js";
 
-   }else{
-      res.status(400).json({message:"user is not created"})
+const signup = async (req, res) => {
+  const { name, email, password } = req.body;
+
+  try {
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "Fill all the fields" });
     }
 
-}catch(e){
-res.status(500).json({message:e.message})
-}
-   
+    if (password.length < 8) {
+      return res.status(400).json({ message: "Minimum password length is 8" });
+    }
 
-}
-const login=async (req,res)=>{
-  const{email,password}=req.body;
-  try{
-      const user=await usermodel.findOne({email})
-      if(!user)res.status(400).json({message:"Invalid inputs"})
-      const passwrdcrt=  await bcrypt.compare(password,user.password)
-    if(!passwrdcrt)res.status(400).json({message:"Invalid inputs"})
-      generatetoken(user._id)
-    res.status(200).json({message:"logged in successfully"})
-  }catch(e){
-console.log(e.message)
-res.status(500).json({message:e.message})
+    const user = await usermodel.findOne({ email });
+
+    if (user) {
+      return res.status(400).json({ message: "User already exists" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newuser = new usermodel({
+      name,
+      email,
+      password: hashedPassword
+    });
+
+    await newuser.save();
+
+    const token = generatetoken(newuser._id); // no need to await, it's not async
+
+    res.status(200).json({
+      message: "User created successfully",
+      token,
+    });
+
+  } catch (e) {
+    res.status(500).json({ message: e.message });
   }
-}
-const logout=async (req,res)=>{
-  try{
-   
-    res.status(200).json({message:"logged out successfully"})
-  }catch(e){
-res.status(500).json({message:e.message})
+};
+
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await usermodel.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    const token = generatetoken(user._id);
+
+    res.status(200).json({
+      message: "Logged in successfully",
+      token,
+    });
+
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).json({ message: e.message });
   }
-}
-const upload=async(req,res)=>{
-  try{ const{profile}=req.body
-  const userid=req.user._id
-  if(
-    !profile
-  ){res.status(400).json({message:"image not uploaed"})}
-  const upload=await cloudinary.uploader.upload(profile)
-  const updateuser=await usermodel.findByIdAndUpdate(userid,{profile:uploadResponse.secure_url},{new:true})
-  res.status(200).json({message:"updated image "})
+};
 
-  }catch(e){
-res.status(500),json({message:e.message})
-console.log(e.message)
-
+const logout = async (req, res) => {
+  try {
+    // Optional: Handle token invalidation on frontend
+    res.status(200).json({ message: "Logged out successfully" });
+  } catch (e) {
+    res.status(500).json({ message: e.message });
   }
+};
 
+const upload = async (req, res) => {
+  try {
+    const { profile } = req.body;
+    const userid = req.user._id;
 
-}
-const check=(req,res)=>{
-  try{res.status(200).json({message:"secured user"})
+    if (!profile) {
+      return res.status(400).json({ message: "Image not uploaded" });
+    }
 
-  }catch(e){
-    res.status(500).json({message:e.message})
+    const uploadResponse = await cloudinary.uploader.upload(profile);
+
+    const updatedUser = await usermodel.findByIdAndUpdate(
+      userid,
+      { profile: uploadResponse.secure_url },
+      { new: true }
+    );
+
+    res.status(200).json({
+      message: "Profile image updated",
+      profile: updatedUser.profile,
+    });
+
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).json({ message: e.message });
   }
-}
-export  {login,logout,signup,upload,check}
+};
+
+const check = (req, res) => {
+  try {
+    res.status(200).json({
+      message: "Secured user",
+      user: req.user,
+    });
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+};
+
+export { login, logout, signup, upload, check };
