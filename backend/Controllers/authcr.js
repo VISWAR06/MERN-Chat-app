@@ -37,13 +37,20 @@ const signup = async (req, res) => {
 
     const token = generatetoken(newuser._id);
 
-    res.status(200).json({
+    res.status(201).json({
       message: "User created successfully",
       token,
+      user: {
+        id: newuser._id,
+        name: newuser.name,
+        email: newuser.email,
+        profile: newuser.profile
+      }
     });
 
   } catch (e) {
-    res.status(500).json({ message: e.message });
+    console.error("Signup error:", e.message);
+    res.status(500).json({ message: "Server error during signup" });
   }
 };
 
@@ -51,6 +58,10 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password are required" });
+    }
+
     const user = await usermodel.findOne({ email });
 
     if (!user) {
@@ -77,8 +88,8 @@ const login = async (req, res) => {
     });
 
   } catch (e) {
-    console.log(e.message);
-    res.status(500).json({ message: e.message });
+    console.error("Login error:", e.message);
+    res.status(500).json({ message: "Server error during login" });
   }
 };
 
@@ -89,18 +100,29 @@ const logout = async (req, res) => {
     if (authHeader && authHeader.startsWith('Bearer ')) {
       const token = authHeader.split(' ')[1];
       
-      // Add token to blacklist
-      tokenBlacklist.add(token);
-      
-      // Optional: Set token expiration in blacklist (for automatic cleanup)
-      setTimeout(() => {
-        tokenBlacklist.delete(token);
-      }, 30 * 24 * 60 * 60 * 1000); // Remove after 30 days (token expiry)
+      // Verify token before adding to blacklist
+      try {
+        const decoded = jwt.verify(token, process.env.SEC);
+        
+        // Add token to blacklist
+        tokenBlacklist.add(token);
+        
+        // Optional: Set token expiration in blacklist (for automatic cleanup)
+        setTimeout(() => {
+          tokenBlacklist.delete(token);
+        }, 30 * 24 * 60 * 60 * 1000); // Remove after 30 days (token expiry)
+        
+        res.status(200).json({ message: "Logged out successfully" });
+      } catch (tokenError) {
+        // Token is invalid or expired, but we can still consider it "logged out"
+        res.status(200).json({ message: "Logged out successfully" });
+      }
+    } else {
+      res.status(400).json({ message: "No valid token provided" });
     }
-    
-    res.status(200).json({ message: "Logged out successfully" });
   } catch (e) {
-    res.status(500).json({ message: e.message });
+    console.error("Logout error:", e.message);
+    res.status(500).json({ message: "Server error during logout" });
   }
 };
 
@@ -127,19 +149,25 @@ const upload = async (req, res) => {
     });
 
   } catch (e) {
-    console.log(e.message);
-    res.status(500).json({ message: e.message });
+    console.error("Upload error:", e.message);
+    res.status(500).json({ message: "Server error during upload" });
   }
 };
 
 const check = (req, res) => {
   try {
     res.status(200).json({
-      message: "Secured user",
-      user: req.user,
+      message: "User authenticated successfully",
+      user: {
+        id: req.user._id,
+        name: req.user.name,
+        email: req.user.email,
+        profile: req.user.profile
+      }
     });
   } catch (e) {
-    res.status(500).json({ message: e.message });
+    console.error("Check error:", e.message);
+    res.status(500).json({ message: "Server error during authentication check" });
   }
 };
 

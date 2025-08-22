@@ -10,23 +10,37 @@ const middle = async (req, res, next) => {
     
     // Check if token is blacklisted
     if (tokenBlacklist.has(token)) {
-      return res.status(401).json({ message: 'Token has been invalidated' });
+      return res.status(401).json({ message: 'Token has been invalidated. Please login again.' });
     }
     
     try {
-      const decoded = jwt.verify(token, process.env.SECRET);
-      req.user = await usermodel.findById(decoded.id).select('-password');
-
-      if (!req.user) {
-        return res.status(404).json({ message: 'User not found' });
+      const decoded = jwt.verify(token, process.env.SEC);
+      
+      // Check if user exists in database
+      const user = await usermodel.findById(decoded.id).select('-password');
+      
+      if (!user) {
+        // User doesn't exist but token is valid - clear the token from client side
+        return res.status(401).json({ 
+          message: 'User account not found. Please sign up again.',
+          action: 'clearToken' // Frontend can use this to clear stored token
+        });
       }
 
+      req.user = user;
       next();
     } catch (e) {
-      return res.status(401).json({ message: 'Invalid or expired token' });
+      // Handle different types of JWT errors
+      if (e.name === 'TokenExpiredError') {
+        return res.status(401).json({ message: 'Token expired. Please login again.' });
+      } else if (e.name === 'JsonWebTokenError') {
+        return res.status(401).json({ message: 'Invalid token. Please login again.' });
+      } else {
+        return res.status(401).json({ message: 'Authentication failed. Please login again.' });
+      }
     }
   } else {
-    return res.status(401).json({ message: 'No token provided' });
+    return res.status(401).json({ message: 'No token provided. Please login.' });
   }
 };
 
