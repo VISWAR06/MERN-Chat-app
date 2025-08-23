@@ -41,6 +41,7 @@ const sendmessage=async(req,res)=>{
         const newmessage=messagemode.create({
             image:url,text,receiverid,senderid
         })
+        await newmessage.save()
         if(newmessage)res.status(200).json({message:"new message created"})
 
     }catch(e)
