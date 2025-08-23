@@ -1,4 +1,5 @@
 import useodel from '../Models/usermodel.js'
+import messagemode from '../Models/message.js'
 const getuser=async(req,res)=>{
     try{
         const loggedin=req.user._id;
@@ -8,15 +9,23 @@ const getuser=async(req,res)=>{
         res.status(400).json({message:e.message})
     }
 }
-const getmessage=async(req,res)=>{
-    try{
-        const{id:receiverid}=req.params
-        
+const getmessage = async (req, res) => {
+  try {
+    const { id: receiverid } = req.params;
+    const myid = req.user._id;
 
-    }catch(e){
-        console.log(e.message)
-res.status(400).json({message:e.message})
-    }
+    const msg = await messageModel.find({
+      $or: [
+        { senderid: myid, receiver: receiverid },
+        { senderid: receiverid, receiver: myid }
+      ]
+    });
 
-}
+    return res.status(200).json({ message: msg });
+  } catch (e) {
+    console.error(e.message);
+    return res.status(400).json({ message: e.message });
+  }
+};
+
 export {getuser,getmessage}
