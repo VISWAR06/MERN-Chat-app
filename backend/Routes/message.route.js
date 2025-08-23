@@ -1,6 +1,6 @@
 import express from 'express'
 import middle from '../Middlewares/middleware.js'
-import
+import{getuser}  from '../Controllers/messages.js'
 const msg=express.Router()
 msg.get('/user',middle,getuser)
 
