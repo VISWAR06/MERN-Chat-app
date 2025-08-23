@@ -9,6 +9,14 @@ const getuser=async(req,res)=>{
     }
 }
 const getmessage=async(req,res)=>{
-    
+    try{
+        const{id:receiverid}=req.params
+        
+
+    }catch(e){
+        console.log(e.message)
+res.status(400).json({message:e.message})
+    }
+
 }
-export {getuser}
+export {getuser,getmessage}
