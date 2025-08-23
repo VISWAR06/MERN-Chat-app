@@ -8,4 +8,7 @@ const getuser=async(req,res)=>{
         res.status(400).json({message:e.message})
     }
 }
+const getmessage=async(req,res)=>{
+    
+}
 export {getuser}
