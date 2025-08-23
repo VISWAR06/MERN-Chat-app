@@ -1,5 +1,6 @@
 import useodel from '../Models/usermodel.js'
 import messagemode from '../Models/message.js'
+import cloudinary from '../lib/cloud.js';
 const getuser=async(req,res)=>{
     try{
         const loggedin=req.user._id;
@@ -29,10 +30,22 @@ const getmessage = async (req, res) => {
 };
 const sendmessage=async(req,res)=>{
     try{
+        const{id:receiverid}=req.params
+        const {image,text}=req.body
+        const senderid=req.user_id
+        let url
+        if(image){
+            const imageurl=cloudinary.uploader.upload(image)
+            url= await imageurl.secure_url
+        }
+        const newmessage=messagemode.create({
+            image:url,text,receiverid,senderid
+        })
+        if(newmessage)res.status(200).json({message:"new message created"})
 
     }catch(e)
     {
-        
+
     }
 
 }
