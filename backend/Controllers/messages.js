@@ -28,7 +28,13 @@ const getmessage = async (req, res) => {
   }
 };
 const sendmessage=async(req,res)=>{
-    
+    try{
+
+    }catch(e)
+    {
+        
+    }
+
 }
 
 export {getuser,getmessage,sendmessage}
