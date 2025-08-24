@@ -7,10 +7,10 @@ const App = () => {
       <Navbar/>
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/' element={<Signin/>}/>
-        <Route path='/' element={<Signup/>}/>
-        <Route path='/' element={<Profile/>}/>
-        <Route path='/' element={<Setting/>}/>
+        <Route path='/login' element={<Signin/>}/>
+        <Route path='/signup' element={<Signup/>}/>
+        <Route path='/profile' element={<Profile/>}/>
+        <Route path='/setting' element={<Setting/>}/>
       </Routes>
     </div>
   )
