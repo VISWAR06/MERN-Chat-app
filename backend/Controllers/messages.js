@@ -15,7 +15,7 @@ const getmessage = async (req, res) => {
     const { id: receiverid } = req.params;
     const myid = req.user._id;
 
-    const msg = await messageModel.find({
+    const msg = await messagemode.find({
       $or: [
         { senderid: myid, receiver: receiverid },
         { senderid: receiverid, receiver: myid }
@@ -38,7 +38,7 @@ const sendmessage=async(req,res)=>{
             const imageurl=cloudinary.uploader.upload(image)
             url= await imageurl.secure_url
         }
-        const newmessage=messagemode.create({
+        const newmessage=new messagemode({
             image:url,text,receiverid,senderid
         })
         await newmessage.save()
