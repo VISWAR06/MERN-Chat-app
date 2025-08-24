@@ -6,7 +6,11 @@ const App = () => {
     <div>
       <Navbar/>
       <Routes>
-        <Route/>
+        <Route path='/' element={<Home/>}/>
+        <Route path='/' element={<Signin/>}/>
+        <Route path='/' element={<Signup/>}/>
+        <Route path='/' element={<Profile/>}/>
+        <Route path='/' element={<Setting/>}/>
       </Routes>
     </div>
   )
