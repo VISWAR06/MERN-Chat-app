@@ -9,10 +9,10 @@ const userAuth= create((set)=>({
     isChecking:true,
     checkAuth:async()=>{
         try{
-            const res=await axioinstance.get("/api/check")
+            const res=await axioinstance.get("auth/check")
             set({user:res.data})
         }catch(e){
-            console.log(e.message)
+            console.log(e)
             set({user:null})
 
         }finally{

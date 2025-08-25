@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from './components/Navbar'
 import { Routes ,Route} from 'react-router-dom'
 import Home from './pages/Home'
@@ -6,7 +6,12 @@ import Setting from './pages/Setting'
 import Sigin from './pages/Sigin'
 import Profile from './pages/Profile'
 import Signup from './pages/Singup'
+import userAuth from './Store/userAuth'
 const App = () => {
+  const {checkAuth}=userAuth()
+  useEffect(()=>{
+    checkAuth()
+  },[checkAuth])
   return (
     <div>
       <Navbar/>
