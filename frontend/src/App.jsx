@@ -9,16 +9,17 @@ import Signup from './pages/Singup'
 import userAuth from './Store/userAuth'
 import {Loader} from 'lucide-react'
 const App = () => {
-  const {checkAuth}=userAuth()
+  const {user,checkAuth}=userAuth()
   useEffect(()=>{
     checkAuth()
   },[checkAuth])
-if(true){
+if(checkAuth && !user){
   return(
     <div className='flex justify-center items-center h-screen '>
       <Loader className='size-10 animate-spin'/>
       </div>
   )
+  <finodh/>
 }
   
   return (
