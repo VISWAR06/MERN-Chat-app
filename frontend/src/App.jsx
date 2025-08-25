@@ -13,13 +13,17 @@ const App = () => {
   useEffect(()=>{
     checkAuth()
   },[checkAuth])
-  if(true)return (
-      <div className='flex items-center justify-center '>
-        <Loader className='size-10,animate-spin'/>
+if(true){
+  return(
+    <div className='flex justify-center items-center h-screen '>
+      <Loader className='size-10 animate-spin'/>
       </div>
   )
+}
+  
   return (
     <div>
+      
       <Navbar/>
       <Routes>
         <Route path='/' element={<Home/>}/>
