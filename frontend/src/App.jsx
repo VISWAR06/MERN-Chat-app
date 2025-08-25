@@ -7,11 +7,17 @@ import Sigin from './pages/Sigin'
 import Profile from './pages/Profile'
 import Signup from './pages/Singup'
 import userAuth from './Store/userAuth'
+import {Loader} from 'lucide-react'
 const App = () => {
   const {checkAuth}=userAuth()
   useEffect(()=>{
     checkAuth()
   },[checkAuth])
+  if(true)return (
+      <div className='flex items-center justify-center '>
+        <Loader className='size-10,animate-spin'/>
+      </div>
+  )
   return (
     <div>
       <Navbar/>
