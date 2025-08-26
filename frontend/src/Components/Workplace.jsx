@@ -2,7 +2,7 @@ import React from 'react'
 
 const Workplace = () => {
   return (
-    <div className='bg-green-600 w-[70%] h-screen'>
+    <div className='border-2 border-black w-[70%] h-screen'>
       Workplace
     </div>
   )
