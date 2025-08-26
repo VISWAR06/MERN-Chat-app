@@ -2,8 +2,8 @@ import React from 'react'
 
 const Workplace = () => {
   return (
-    <div>
-      
+    <div className='bg-green-600 w-[70%] h-screen'>
+      Workplace
     </div>
   )
 }

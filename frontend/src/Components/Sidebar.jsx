@@ -2,8 +2,8 @@ import React from 'react'
 
 const Sidebar = () => {
   return (
-    <div>
-      
+    <div className='bg-white  h-screen w-[30%]'>
+      Sidebar
     </div>
   )
 }
