@@ -2,7 +2,7 @@ import React from 'react'
 
 const Workplace = () => {
   return (
-    <div className='border-2 border-black flex-1 h-screen'>
+    <div className='border-2 border-black w-[70%] h-screen'>
       Workplace
     </div>
   )

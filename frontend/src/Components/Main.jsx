@@ -5,10 +5,10 @@ import Convo from './Sidebar comp/Convo'
 
 const main = () => {
   return (
-    <div className='flex  h-screen w-screen'>
+    <div className='flex'>
       <Sidebar/>
       <Workplace/>
-      <Convo/>
+      
     </div>
   )
 }
