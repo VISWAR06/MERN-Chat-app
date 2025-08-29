@@ -1,11 +1,13 @@
+
 import React from 'react'
 
-const Convo = () => {
+const Convo = ({ name, message, time }) => {
   return (
-   <div className="h-[75.8%] bg-red-200 rounded-t-xl  p-4 mt-2 text-gray-800 ">
-  convo
-</div>
-
+    <div className="bg-red-200 rounded-xl p-4 mt-2 text-gray-800">
+      <div className="font-bold">{name}</div>
+      <div>{message}</div>
+      <div className="text-sm text-gray-600">{time}</div>
+    </div>
   )
 }
 
