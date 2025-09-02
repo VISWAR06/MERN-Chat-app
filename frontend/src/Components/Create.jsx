@@ -6,7 +6,7 @@ import Send from './workspace compenent/Send'
 
 const Create = () => {
   return (
-    <div>
+    <div className=''>
       <Header/>
       <Text/>
       <Send/>
