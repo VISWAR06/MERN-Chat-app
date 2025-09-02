@@ -2,7 +2,7 @@ import React from 'react'
 
 const Text = () => {
   return (
-    <div>
+    <div className='h-[90%] bg-white'>
       text
     </div>
   )

@@ -2,9 +2,8 @@ import React from 'react'
 
 const Send = () => {
   return (
-    <div>
-      send
-    </div>
+    <footer>send</footer>
+
   )
 }
 
