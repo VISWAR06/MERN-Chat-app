@@ -8,5 +8,4 @@ const Sidebar = () => {
   )
 }
 
-export default Sidebar
-finish
+export default Sidebar;
