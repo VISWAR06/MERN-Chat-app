@@ -1,9 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
-const Sidebar = () => {
+const Sidebar = ({user,setUser}) => {
+  const navigate=useNavigate();
   return (
-    <div>
-      Sidebar
+    <div className={'h-full p-5 rounded-r-xl overflow-y-scroll text-black '}>
+      <div>
+        
+      </div>
     </div>
   )
 }
