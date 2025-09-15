@@ -1,5 +1,6 @@
 import usermodel from '../Models/Usermode.js'
 import bcrypt from 'bcryptjs'
+import genarateToken from '../Middleware/Token.js';
 export const signup = async(req,res)=>{
     try{  const {name,email,password}=req.body;
     if(!name||!email||!password)return res.status(400).json({message:"all fields req"});
@@ -11,6 +12,13 @@ export const signup = async(req,res)=>{
         name,email,password:hashpass
     })
     if(newuser){
+        genarateToken(newuser._id,res);
+        await newuser.save()
+        res.status(201).json({
+            name:newuser.name,
+            email:newuser.email,
+           
+        })
 
     }else{
         return res.status(400).json({message:"internal error"})
@@ -21,5 +29,8 @@ export const signup = async(req,res)=>{
     res.status(500).json({message:error.message})
   }
 
+
+}
+export const signin =async(req,res)=>{
 
 }
