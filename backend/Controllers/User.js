@@ -12,20 +12,13 @@ export const signup = async(req,res)=>{
     const newuser=new usermodel({
         name,email,password:hashpass
     })
-    if(newuser){
-        genarateToken(newuser._id,res);
-        await newuser.save()
-        res.status(201).json({
-            name:newuser.name,
-            email:newuser.email,
-           
-        })
-
-    }else{
-         console.log(error.message)
-        res.status(400).json({message:"internal error"})
-       
-    }
+    await newuser.save()
+    genarateToken(newuser._id,res)
+    res.status(201).json({
+        name:newuser.name,
+        email:newuser.email,
+        _id:newuser._id
+    })
 
     }
   catch(error){
