@@ -7,7 +7,8 @@ export const signup = async(req,res)=>{
     if(password.length<6)return res.status(400).json({message:"must be greater than 6 chart"});
     const exits=await usermodel.findOne({email})
     if(exits)res.status(400).json({message:"already exists"})
-    const hashpass=await bcrypt.hash(password,10);
+        const salt=await bcrypt.genSalt(10);
+    const hashpass=await bcrypt.hash(password,salt);
     const newuser=new usermodel({
         name,email,password:hashpass
     })
@@ -21,11 +22,14 @@ export const signup = async(req,res)=>{
         })
 
     }else{
-        return res.status(400).json({message:"internal error"})
+         console.log(error.message)
+        res.status(400).json({message:"internal error"})
+       
     }
 
     }
   catch(error){
+    console.log(error.message)
     res.status(500).json({message:error.message})
   }
 

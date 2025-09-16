@@ -4,14 +4,18 @@ import auth from './Routes/auth.route.js'
 import message from './Routes/message.route.js'
 import path from 'path'
 import connect from "./DB/db.js"
+import cors from 'cors'
 
 dotenv.config()
 const app=express()
 const __dirname=path.resolve();
 const port=process.env.PORT || 3000;
 connect()
+app.use(express.json())
+app.use(cors())
 
-app.use('auth/api',auth)
+
+app.use('/auth/api',auth)
 app.use('/message',message)
 if(process.env.NODE=="production"){
     app.use(express.static(path.join(__dirname,"../frontend/dist")));
