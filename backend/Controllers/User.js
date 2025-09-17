@@ -1,6 +1,6 @@
 import usermodel from '../Models/Usermode.js'
 import bcrypt from 'bcryptjs'
-import genarateToken from '../Middleware/Token.js';
+import genarateToken from '../Lib/Token.js';
 export const signup = async(req,res)=>{
     try{  const {name,email,password}=req.body;
     if(!name||!email||!password)return res.status(400).json({message:"all fields req"});
