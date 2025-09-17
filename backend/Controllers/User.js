@@ -36,6 +36,30 @@ export const signup = async(req,res)=>{
 
 
 }
-export const signin =async(req,res)=>{
+export const login =async(req,res)=>{
+const {email,password}=req.body;
+try{
+  const user = await usermodel.findOne({email})
+  if(!user)return res.status(400).json({message:"no user"})
+  const pass=await bcrypt.compare(password,user.password)
+if(!pass)return res.status(400).json({message:"invalid credatianls"})
+  genarateToken(user._id,res)
+res.status(200).json({
+  _id:user._id,
+  name:user.name,
+  profilepic:user.profile
+}
+)
 
+}catch(error){
+  console.log(error.message)
+  res.status(500).json({message:"error in the segment"})
+
+}
+}
+export const logout = async(req,res)=>{
+  const token = req.cookies.jwt
+  if(!token)return res.status(500).json("not logged in")
+  res.cookie("jwt","",{maxAge:0})
+  res.status(200).json({message:"logouted successfully"})
 }
