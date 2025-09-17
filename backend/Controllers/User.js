@@ -1,6 +1,8 @@
 import usermodel from '../Models/Usermode.js'
 import bcrypt from 'bcryptjs'
 import genarateToken from '../Lib/Token.js';
+import { sendemail } from '../Emails/handle.js';
+import 'dotenv/config'
 export const signup = async(req,res)=>{
     try{  const {name,email,password}=req.body;
     if(!name||!email||!password)return res.status(400).json({message:"all fields req"});
@@ -19,6 +21,12 @@ export const signup = async(req,res)=>{
         email:newuser.email,
         _id:newuser._id
     })
+    try{
+      await sendemail(newuser.email,newuser.name,process.env.CLIENT_URL)
+
+    }catch(error){
+      console.log(error.message)
+    }
 
     }
   catch(error){
