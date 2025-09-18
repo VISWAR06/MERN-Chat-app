@@ -1,6 +1,6 @@
 import express from "express"
 import dotenv from 'dotenv'
-import auth from './Routes/auth.route.js'
+import auth from './Routes/auth.js'
 import message from './Routes/message.route.js'
 import path from 'path'
 import connect from "./DB/db.js"

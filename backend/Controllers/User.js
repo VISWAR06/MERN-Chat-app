@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs'
 import genarateToken from '../Lib/Token.js';
 import { sendemail } from '../Emails/handle.js';
 import 'dotenv/config'
+import cloudinary from '../Lib/Cloud.js';
 export const signup = async(req,res)=>{
     try{  const {name,email,password}=req.body;
     if(!name||!email||!password)return res.status(400).json({message:"all fields req"});
@@ -63,3 +64,17 @@ export const logout = async(req,res)=>{
   res.cookie("jwt","",{maxAge:0})
   res.status(200).json({message:"logouted successfully"})
 }
+export const upload = async(req,res)=>{
+  try{
+    const {profilepic}=req.body;
+    if(!profilepic)return res.status(400).json({message:"pic required"})
+      const userid=req.user._id
+    const updateurl = await cloudinary.uploader.upload(profilepic)
+   const updated= await user.findByIdAndUpdate(userid,{profilepic:updateurl.secure_url},{new:true})
+   res.status(200).json({message:"updated"})
+
+  }catch(e){
+    res.status(500).json({message:e.message})
+
+  }
+} 
