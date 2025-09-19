@@ -1,7 +1,8 @@
 import arcjet, { shield, detectBot, slidingWindow } from "@arcjet/node";
+import 'dotenv/config'
 
 const aj = arcjet({
-  key: process.env.ARCJET_KEY,
+  key: process.env.ARC_API,
   rules: [
     shield({ mode: "LIVE" }),
     detectBot({
