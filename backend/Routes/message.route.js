@@ -4,7 +4,7 @@ import {getchat,getcontact,getmessage,sendmessage} from '../Controllers/Message.
 import middleware from '../Middleware/Auth.js';
 
 route.get("/contact",middleware,getcontact);
-route.get("/chat",getchat);
-route.get("/:id",getmessage);
-route.post("/messages/:id",sendmessage);
+route.get("/chat",middleware,getchat);
+route.get("/:id",middleware,getmessage);
+route.post("/send/:id",middleware,sendmessage);
 export default route
