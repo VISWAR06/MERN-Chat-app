@@ -6,7 +6,20 @@ export const getchat=async (req,res)=>{
    
     
 }
-export const getmessage=(req,res)=>{
+export const getmessage=async(req,res)=>{
+    try{
+        const sendid = req.user._id;
+        const {id:recvid}=req.params
+        const message = await messagemode.find({
+            $or:[{senderId:sendid,receiverId:recvid},
+                {senderId:recvid,receiverId:sendid}
+            ]
+        })
+
+    }catch(e){
+        console.log(e.message)
+        res.status(500).json({message:e.message})
+    }
 
 }
 export const getcontact=async (req,res)=>{
