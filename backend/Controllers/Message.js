@@ -18,6 +18,7 @@ export const getmessage=async(req,res)=>{
         },{message:1,_id:0})
         const messageonly = await message.map(msg=>msg.message)
         res.status(200).json(messageonly)
+        now work
 
     }catch(e){
         console.log(e.message)
