@@ -4,10 +4,35 @@ import cloudinary from "../Lib/Cloud.js";
 
 
 export const getchat=async (req,res)=>{
+    // in this we get the id of the sender form the middelware 
+    // then we create a new set in that map function we check the sender and loggedid return them 
+    try{
+         const loggedinid = req.user._id
+    const message = await messagemode.find({
+        $or:[{senderId:loggedinid},{receiverId:loggedinid}]
+    })
+    const chatid = [
+        ...new Set(
+            message.map((msg)=>msg.senderId.toString()===loggedinid.toString()
+        ?receiverId.toString():senderId.toString())
+        )
+    ]
+    const chatpartners = await usermodel.find({_id:{$in:chatid}}).select("-password")
+    res.status(200).json({message:chatpartners})
+
+    }
+    catch(e){
+        console.log(e.message)
+        res.status(500).json({message:e.message})
+    }
+   
    
     
 }
 export const getmessage=async(req,res)=>{
+    // in this we get the id sender id from the middelware and the reciver form the params
+    // fetch the messages from the db by using the "or" this if the sender is me or the another user vise versa fro the receiver also
+
     try{
         const sendid = req.user._id;
         const {id:recvid}=req.params
@@ -15,10 +40,9 @@ export const getmessage=async(req,res)=>{
             $or:[{senderId:sendid,receiverId:recvid},
                 {senderId:recvid,receiverId:sendid}
             ]
-        },{message:1,_id:0})
-        const messageonly = await message.map(msg=>msg.message)
-        res.status(200).json(messageonly)
-        now work
+        })
+        res.status(200).json(message)
+    
 
     }catch(e){
         console.log(e.message)
@@ -27,6 +51,7 @@ export const getmessage=async(req,res)=>{
 
 }
 export const getcontact=async (req,res)=>{
+    // in this we get all the contact from the db withotu the user loggedin other than them all the contacts are selected
      try{
      
 const reqid = req.user._id
@@ -43,6 +68,8 @@ res.status(200).json(filteruser)
 
 }
 export const sendmessage=async(req,res)=>{
+    // in this we get the text image from the user and the sender formthe middelware and then recv from the params
+    // after if the image is avalb we push inot the cloudnay and then create a new object holdin the values int ehmessage model
 
     try{
         const {image,text}=req.body;
