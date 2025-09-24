@@ -14,8 +14,7 @@ export const getchat=async (req,res)=>{
     const chatid = [
         ...new Set(
             message.map((msg)=>msg.senderId.toString()===loggedinid.toString()
-        ?receiverId.toString():senderId.toString())
-        )
+        ?receiverId.toString():senderId.toString()
     ]
     const chatpartners = await usermodel.find({_id:{$in:chatid}}).select("-password")
     res.status(200).json({message:chatpartners})
