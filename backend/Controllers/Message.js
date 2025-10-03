@@ -4,7 +4,7 @@ import cloudinary from "../Lib/Cloud.js";
 
 
 export const getchat=async (req,res)=>{
-    // in this we get the id of the sender form the middelware 
+    // in this we get the id of the sender form the middelware that is
     // then we create a new set in that map function we check the sender and loggedid return them 
     try{
          const loggedinid = req.user._id
