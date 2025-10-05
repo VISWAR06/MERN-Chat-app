@@ -11,12 +11,21 @@
     "type": "git",
     "url": "git+https://github.com/VISWAR06/MERN-Chat-app.git"
   },
-  "keywords": ["mern", "chat", "app"],
+  "keywords": [
+    "mern",
+    "chat",
+    "app"
+  ],
   "author": "VISWAR06",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/VISWAR06/MERN-Chat-app/issues"
   },
-  "homepage": "https://github.com/VISWAR06/MERN-Chat-app#readme"
+  "homepage": "https://github.com/VISWAR06/MERN-Chat-app#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.18"
+  }
 }
