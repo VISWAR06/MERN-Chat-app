@@ -7,4 +7,3 @@ export const axiosistance = axios.create({
 new Promise((resolve, reject) => {
     
 })
-nowork

@@ -9,6 +9,7 @@ const App = () => {
     p-4 overflow-hidden'>
       <div className='absolute top-0 -left-1 size-96 bg-pink-400 opacity-20 blur-[100px]'/>
       <div className='absolute bottom-0 -right-0 size-96 bg-cyan-400 opacity-20 blur-[100px]'/>
+      <div className='absolute bottom-0 -left-0 size-96 bg-cyan-400 opacity-20 blur-[100px]'/>
       <Routes>
         <Route path='/' element={<ChatPage/>}/>
         <Route path='/login' element={<LoginUpPage/>}/>
