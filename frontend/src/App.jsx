@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import ChatPage from "./Pages/ChatPage";
 import LoginUpPage from "./Pages/LoginUpPage";
 import SignUpPage from "./Pages/SignUpPage";
 import { AuthStore } from "./store/AuthStore.js";
-import { Navigate } from "react-router-dom";
 
 const App = () => {
-  const { fucheck,user } = AuthStore();
+  const { fucheck, user } = AuthStore();
 
   useEffect(() => {
     const fetchAuthData = async () => {
@@ -20,7 +19,8 @@ const App = () => {
     };
 
     fetchAuthData();
-  }, [fucheck]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div
@@ -32,9 +32,18 @@ const App = () => {
       <div className="absolute bottom-0 -left-0 size-96 bg-cyan-400 opacity-20 blur-[100px]" />
 
       <Routes>
-        <Route path="/" element={user?<ChatPage />:<Navigate to='{/login}'/>} />
-        <Route path="/login" element={!user?<LoginUpPage />:<Navigate to='{/}'/>} />
-        <Route path="/signup" element={!user?<SignUpPage />:<Navigate to='{/}'/>} />
+        <Route
+          path="/"
+          element={user ? <ChatPage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/login"
+          element={!user ? <LoginUpPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/signup"
+          element={!user ? <SignUpPage /> : <Navigate to="/" />}
+        />
       </Routes>
     </div>
   );
