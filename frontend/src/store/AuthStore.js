@@ -3,13 +3,13 @@ import { axiosistance } from "../lib/axios";
 
 export const AuthStore = create((set) => ({
   check: true,
-  authed: false,
+  user:null,
 
   fucheck: async () => {
     try {
       const res = await axiosistance.get("/auth/check");
-      set({ authed: true, check: false });
-      return res.data; 
+      set({ user:res.data, check: false });
+    
     } catch (e) {
       console.error("Auth check failed:", e);
       set({ authed: false, check: false });
