@@ -1,9 +1,9 @@
-import axios from 'axios'
+import axios from "axios";
 
 export const axiosistance = axios.create({
-    baseURL:import.meta.env.mode==='development'?'http://localhost:3000/api':'/api',
-    withCredentials:true
-})
-new Promise((resolve, reject) => {
-    
-})
+  baseURL:
+    import.meta.env.MODE === "development"
+      ? "http://localhost:5000/api"
+      : "/api",
+  withCredentials: true,
+});
