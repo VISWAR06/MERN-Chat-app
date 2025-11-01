@@ -1,6 +1,6 @@
 
 
-<h1 align="center">💬 MERN Real-Time Chat Application 🚀</h1>
+<h1 align="center">💬 MERN Real-Time Chat Application 🚀.</h1>
 
 <p align="center">
   <img src="https://img.shields.io/badge/MERN-Stack-4caf50?style=for-the-badge&logo=mongodb&logoColor=white" />
