@@ -44,7 +44,7 @@ const App = () => {
           path="/signup"
           element={!user ? <SignUpPage /> : <Navigate to="/" />}
         />
-      </Routes>
+   
     </div>
   );
 };
