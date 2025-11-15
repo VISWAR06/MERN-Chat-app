@@ -16,7 +16,7 @@ const App = () => {
       } catch (error) {
         console.error("❌ Auth check failed:", error);
       }
-    };
+    }
 
     fetchAuthData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
