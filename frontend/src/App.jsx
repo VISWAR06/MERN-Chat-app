@@ -19,7 +19,7 @@ const App = () => {
     }
 
     fetchAuthData();
-    // eslint-disable-next-line react-hooks/exhaustive-
+    // eslint-disable-next-line react-hooks/exhausti
   }, []);
 
   return (
