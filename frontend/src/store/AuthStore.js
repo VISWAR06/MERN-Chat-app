@@ -78,7 +78,7 @@ export const useAuthStore = create((set, get) => ({
       console.log("Error in update profile:", error);
       toast.error(error.response.data.message);
     }
-  },
+  }
 
   connectSocket: () => {
     const { authUser } = get();
