@@ -42,6 +42,6 @@ function ChatHeader() {
         <XIcon className="w-5 h-5 text-slate-400 hover:text-slate-200 transition-colors cursor-pointer" />
       </button>
     </div>
-  );
+  )
 }
 export default ChatHeader;
