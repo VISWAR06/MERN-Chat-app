@@ -79,7 +79,7 @@ function SignUpPage() {
                     </div>
                   </div>
 
-                  {/* SUBMIT BUTTON */}
+                
                   <button className="auth-btn" type="submit" disabled={isSigningUp}>
                     {isSigningUp ? (
                       <LoaderIcon className="w-full h-5 animate-spin text-center" />

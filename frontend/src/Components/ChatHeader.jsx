@@ -32,7 +32,7 @@ function ChatHeader() {
           </div>
         </div>
 
-        {/* <div>
+        <div>
           <h3 className="text-slate-200 font-medium">{selectedUser.fullName}</h3>
           <p className="text-slate-400 text-sm">{isOnline ? "Online" : "Offline"}</p>
         </div>
@@ -41,7 +41,7 @@ function ChatHeader() {
       <button onClick={() => setSelectedUser(null)}>
         <XIcon className="w-5 h-5 text-slate-400 hover:text-slate-200 transition-colors cursor-pointer" />
       </button>
-    </div> */}
+    </div>
   )
 }
 export default ChatHeader;
