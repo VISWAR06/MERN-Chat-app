@@ -1,6 +1,7 @@
 const userLoadingSkeleton=()=>{
  
     return (
+        <userLoadingSkeleton/>
 
     )
 }
