@@ -14,8 +14,7 @@ const messageschema = new mongoose.Schema({
     },
     image:{
         type:String}
-        // git check
-        
+        // 
 },{timestamps:true})
 const messagemode = mongoose.model("message",messageschema)
 export default messagemode
